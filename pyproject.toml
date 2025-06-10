@@ -1,0 +1,65 @@
+[project]
+name = "pytent"
+version = "0.0.0"
+description = "A monorepo project template with UV package manager and CI integration."
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [
+    {name = "rjoydip", email = "joydipand@gmail.com"}
+]
+
+[tool.uv.workspace]
+members = [
+    "packages/log",
+    "packages/error", 
+    "packages/database",
+    "services/*", 
+    "tools/*"
+]
+
+# Add these as workspace dependencies
+[tool.uv.sources]
+pytent-log = { workspace = true }
+pytent-error = { workspace = true }
+pytent-database = { workspace = true }
+
+[dependency-groups]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "ruff>=0.1.0",
+    "pre-commit>=3.0.0",
+    "httpx>=0.28.1",
+    "pyright>=1.1.401",
+]
+
+[tool.uv]
+upgrade = false
+default-groups = "all"
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+extend-include = ["*.ipynb"]
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "UP", # pyupgrade
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "packages", "services"]
+python_files = ["test_*.py", "*_test.py"]
+addopts = "--cov --cov-report=term-missing --cov-report=html"
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+ignore = ['**/*venv/**\*', '**/*dist/**\*', '**/*.pytest_cache/**\*', '**/*.ruff_cache/**\*', '**/*htmlcov/**\*', "**/*test_*.py"]

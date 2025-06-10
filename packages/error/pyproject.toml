@@ -1,0 +1,18 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pytent-error"
+version = "0.1.0"
+description = "Error handling utilities for Pytent"
+requires-python = ">=3.11"
+dependencies = [
+    "pytent-log",
+]
+
+[tool.uv.sources]
+pytent-log = { workspace = true }
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pytent_error"]

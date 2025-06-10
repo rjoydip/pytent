@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pytent-api"
+version = "0.1.0"
+description = "API for Pytent"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.115.12",
+    "uvicorn>=0.34.2",
+    "pytent-log",
+]
+
+[tool.uv.sources]
+pytent-log = { workspace = true }
+
+[project.scripts]
+api = "api.main:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["main"]
