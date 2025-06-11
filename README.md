@@ -9,17 +9,16 @@ A monorepo project template with UV package manager and CI integration.
 
 ## 🚀 Features
 
-- UV package manager for dependency management
+- UV package manager
 - Docker support
 - Ruff for code formatting and linting
 - Pytest for testing
-- Logging configuration
 
 ## 📋 Prerequisites
 
 - Python 3.13+
 - Docker Desktop
-- UV package manager
+- UV
 
 ## 🛠 Installation
 
@@ -36,6 +35,12 @@ uv sync --all-packages
 ## Development
 
 ### Local Development
+
+- Build modules:
+
+```bash
+uv build --all-packages
+```
 
 - Run UV application locally:
 
@@ -131,8 +136,6 @@ python-monorepo-starter/
 │     └─ pyproject.toml
 ├─ scripts/
 │  ├─ build.py
-│  ├─ lint.py
-│  └─ test.py
 ├─ services/
 │  ├─ api/
 │  │  ├─ tests/
