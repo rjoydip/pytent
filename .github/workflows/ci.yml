@@ -29,6 +29,9 @@ jobs:
       - name: Typecheck
         run: uv run pyright
 
+      - name: Audit
+        run: uv run --all-groups --with pip-audit pip-audit -l
+
   build:
     runs-on: ubuntu-latest
     steps:

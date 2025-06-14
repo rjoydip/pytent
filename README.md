@@ -42,6 +42,12 @@ uv sync --all-packages
 uv build --all-packages
 ```
 
+- Audit package vulnerability
+
+```bash
+uv run --all-groups --with pip-audit pip-audit -l
+```
+
 - Run UV application locally:
 
 ```bash
