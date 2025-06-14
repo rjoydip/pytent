@@ -4,7 +4,26 @@ repos:
     hooks:
     -   id: check-yaml
     -   id: trailing-whitespace
+
 -   repo: https://github.com/psf/black
     rev: 22.10.0
     hooks:
     -   id: black
+
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.11.13
+  hooks:
+    - id: ruff
+      args: [ --fix ]
+    - id: ruff-format
+
+- repo: https://github.com/RobertCraigie/pyright-python
+  rev: v1.1.402
+  hooks:
+  - id: pyright
+
+- repo: https://github.com/rubik/xenon
+  rev: v0.9.0
+  hooks:
+  - id: xenon
+    args: ['--paths-in-front > artifacts/complexity-report.json']

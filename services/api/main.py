@@ -1,4 +1,3 @@
-
 from fastapi import FastAPI, Response
 from pytent_log import get_logger
 

@@ -1,8 +1,9 @@
 # Pytent
 
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
-[![image](https://img.shields.io/pypi/v/uv.svg)](https://pypi.python.org/pypi/uv)
-[![Checked with pyright](https://microsoft.github.io/pyright/img/pyright_badge.svg)](https://microsoft.github.io/pyright/)
+[![uv-pypi](https://img.shields.io/pypi/v/uv.svg)](https://pypi.python.org/pypi/uv)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![pyright](https://microsoft.github.io/pyright/img/pyright_badge.svg)](https://microsoft.github.io/pyright/)
 [![CI](https://github.com/rjoydip/pytent/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/rjoydip/pytent/actions/workflows/ci.yml)
 
 A monorepo project template with UV package manager and CI integration.
@@ -32,6 +33,12 @@ Install project dependencies:
 uv sync --all-packages
 ```
 
+2. Pre-commit
+
+```bash
+uvx pre-commit install
+```
+
 ## Development
 
 ### Local Development
@@ -40,6 +47,24 @@ uv sync --all-packages
 
 ```bash
 uv build --all-packages
+```
+
+- Audit package vulnerability
+
+```bash
+uv run --all-groups --with pip-audit pip-audit -l
+```
+
+- Run Pre-commit against all the files
+
+```bash
+uvx pre-commit run --all-files
+```
+
+- Complexity Analysis
+
+```bash
+uv run xenon ./ --paths-in-front > artifacts/complexity-report.json
 ```
 
 - Run UV application locally:
@@ -54,19 +79,19 @@ uv run uvicorn main:app --port 8000 --reload
 ```bash
 uv run ruff format .
 # or
-uv run ruff check --fix
+uv run ruff check --output-format=json . > artifacts/ruff-output.json
 ```
 
 - Run typechecking:
 
 ```bash
-uv run pyright
+uv run pyright . --outputjson > artifacts/pyright-output.json 2>&1
 ```
 
 - Run tests:
 
 ```bash
-uv run pytest
+uv run pytest --cov=packages --cov-report=json:artifacts/coverage.json
 ```
 
 ### Docker Development

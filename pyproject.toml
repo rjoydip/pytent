@@ -8,13 +8,16 @@ requires-python = ">=3.12"
 authors = [
     {name = "rjoydip", email = "joydipand@gmail.com"}
 ]
+dependencies = [
+    "xenon>=0.9.3",
+]
 
 [tool.uv.workspace]
 members = [
     "packages/log",
-    "packages/error", 
+    "packages/error",
     "packages/database",
-    "services/*", 
+    "services/*",
     "tools/*"
 ]
 
@@ -63,3 +66,9 @@ addopts = "--cov --cov-report=term-missing --cov-report=html"
 venvPath = "."
 venv = ".venv"
 ignore = ['**/*venv/**\*', '**/*dist/**\*', '**/*.pytest_cache/**\*', '**/*.ruff_cache/**\*', '**/*htmlcov/**\*', "**/*test_*.py"]
+
+[tool.xenon]
+max-absolute = "B"
+max-modules = "A"
+max-average = "A"
+exclude = ["tests/*", "*/tests/*", "build/*", "dist/*"]

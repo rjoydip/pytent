@@ -24,15 +24,30 @@ jobs:
         run: uv run ruff format
 
       - name: Lint
-        run: uv run ruff check --fix
+        run: uv run ruff check --output-format=json . > artifacts/ruff-output.json
 
       - name: Typecheck
-        run: uv run pyright
+        run: uv run pyright . --outputjson > artifacts/pyright-output.json 2>&1
+
+      - name: Audit
+        run: uv run --all-groups --with pip-audit pip-audit -l
+
+      - name: Complexity Analysis
+        run: uv run xenon ./ --paths-in-front > artifacts/complexity-report.json
+        continue-on-error: true
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          path: artifacts
+          retention-days: 30
 
   build:
     runs-on: ubuntu-latest
+    needs: ["lint"]
     steps:
-        - name: Checkout 
+        - name: Checkout
           uses: actions/checkout@v4
 
         - uses: ./.github/actions/setup
@@ -42,11 +57,12 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    needs: ["lint"]
     steps:
-      - name: Checkout 
+      - name: Checkout
         uses: actions/checkout@v4
 
       - uses: ./.github/actions/setup
 
       - name: Test
-        run: uv run pytest
+        run: uv run pytest --cov=packages --cov-report=json:artifacts/coverage.json

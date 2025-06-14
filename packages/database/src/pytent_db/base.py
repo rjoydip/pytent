@@ -5,7 +5,7 @@ from typing import Any
 
 from sqlalchemy import DateTime, func
 from sqlalchemy.ext.declarative import declared_attr
-from sqlalchemy.orm import as_declarative, DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.orm import DeclarativeBase, Mapped, as_declarative, mapped_column
 
 
 @as_declarative()
