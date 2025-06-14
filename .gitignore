@@ -10,3 +10,4 @@ wheels/
 .venv
 ._*
 .coverage
+artifacts/*.json

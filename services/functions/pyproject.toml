@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "AWS function for Pytent"
 requires-python = ">=3.11"
 dependencies = [
-    
+
 ]
 
 [tool.hatch.build.targets.wheel]
