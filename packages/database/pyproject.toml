@@ -4,9 +4,9 @@ build-backend = "hatchling.build"
 
 [project]
 name = "pytent-database"
-version = "0.1.0"
+version = "0.0.0"
 description = "Database utilities for Pytent"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 dependencies = [
     "sqlalchemy>=2.0.0",
     "asyncpg>=0.28.0",

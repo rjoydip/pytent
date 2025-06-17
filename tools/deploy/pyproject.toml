@@ -4,10 +4,10 @@ build-backend = "hatchling.build"
 
 [project]
 name = "pytent-deploy"
-version = "0.1.0"
-description = "Deploy for Pytent"
-requires-python = ">=3.11"
+version = "0.0.0"
+description = "Deployment Script for Pytent"
+requires-python = ">=3.12"
 dependencies = []
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/init"]
+packages = ["src/__init__"]

@@ -1,10 +1,11 @@
 # Pytent
 
+[![ci](https://github.com/rjoydip/pytent/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/rjoydip/pytent/actions/workflows/ci.yml)
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
-[![uv-pypi](https://img.shields.io/pypi/v/uv.svg)](https://pypi.python.org/pypi/uv)
-[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?style=flat-square&logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![conventional commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg?style=flat-square)](https://conventionalcommits.org)
 [![pyright](https://microsoft.github.io/pyright/img/pyright_badge.svg)](https://microsoft.github.io/pyright/)
-[![CI](https://github.com/rjoydip/pytent/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/rjoydip/pytent/actions/workflows/ci.yml)
+[![ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
 A monorepo project template with UV package manager and CI integration.
 
@@ -17,13 +18,13 @@ A monorepo project template with UV package manager and CI integration.
 
 ## 📋 Prerequisites
 
-- Python 3.13+
+- Python 3.12+
 - Docker Desktop
 - UV
 
 ## 🛠 Installation
 
-1. Clone the repository:
+- Clone the repository:
 
 -----
 
@@ -33,10 +34,47 @@ Install project dependencies:
 uv sync --all-packages
 ```
 
-2. Pre-commit
+- Ruff
 
 ```bash
+# Install Ruff
+uv tool install ruff
+```
+
+- Pyright
+
+```bash
+# Install Pyright
+uv tool install pyright
+```
+
+- Pip Audit
+
+```bash
+# Install Pyright
+uv tool install pip-audit
+```
+
+- Pre-commit
+
+```bash
+# Install Pre-commit
+uv tool install pre-commit
+
 uvx pre-commit install
+```
+
+- Commitizen
+
+```bash
+# Install commitizen
+uv tool install commitizen
+```
+
+## Upgrade Tools
+
+```bash
+uv tool upgrade [...TOOL_NAMES]
 ```
 
 ## Development
@@ -52,7 +90,7 @@ uv build --all-packages
 - Audit package vulnerability
 
 ```bash
-uv run --all-groups --with pip-audit pip-audit -l
+uvx pip-audit -l
 ```
 
 - Run Pre-commit against all the files
@@ -61,37 +99,38 @@ uv run --all-groups --with pip-audit pip-audit -l
 uvx pre-commit run --all-files
 ```
 
-- Complexity Analysis
-
-```bash
-uv run xenon ./ --paths-in-front > artifacts/complexity-report.json
-```
-
-- Run UV application locally:
-
-```bash
-cd services/api
-uv run uvicorn main:app --port 8000 --reload
-```
-
 - Run code formatting and linting:
 
 ```bash
-uv run ruff format .
-# or
-uv run ruff check --output-format=json . > artifacts/ruff-output.json
+# Formatting
+uvx ruff format .
+# Linting check
+uvx ruff check --output-format=json . > artifacts/ruff-output.json
 ```
 
 - Run typechecking:
 
 ```bash
-uv run pyright . --outputjson > artifacts/pyright-output.json 2>&1
+uvx pyright . --outputjson > artifacts/pyright-output.json 2>&1
 ```
 
 - Run tests:
 
 ```bash
 uv run pytest --cov=packages --cov-report=json:artifacts/coverage.json
+```
+
+- Complexity Analysis
+
+```bash
+uv run xenon . --paths-in-front > artifacts/complexity-report.json
+```
+
+### Local application development
+
+```bash
+cd services/api
+uv run uvicorn main:app --port 8000 --reload
 ```
 
 ### Docker Development
@@ -102,6 +141,17 @@ Build and run the api in Docker:
 docker build -t api .
 docker run -p 8000:8000 api
 ```
+
+## Commitizen Commands
+
+| Command | Description | Alias |
+|---------|-------------|-------|
+| `cz init` | Initialize Commitizen configuration | - |
+| `cz commit` | Create a new commit | `cz c` |
+| `cz bump` | Bump version and update changelog | - |
+| `cz changelog` | Generate changelog | `cz ch` |
+| `cz check` | Validate commit messages | - |
+| `cz version` | Show version information | - |
 
 ## ⚙️ Configuration
 
@@ -136,7 +186,10 @@ python-monorepo-starter/
 │  │  ├─ ci.yml
 │  │  └─ release.yml
 │  └─ dependabot.yml
-│  └─ README.md
+├─ artifacts/
+│  └─ .gitkeep
+├─ docs/
+│  └─ .gitkeep
 ├─ packages/
 │  ├─ database/
 │  │  ├─ src/
@@ -160,7 +213,7 @@ python-monorepo-starter/
 │     │     └─ logger.py
 │     └─ pyproject.toml
 ├─ scripts/
-│  ├─ build.py
+│  └─ .gitkeep
 ├─ services/
 │  ├─ api/
 │  │  ├─ tests/
@@ -181,19 +234,20 @@ python-monorepo-starter/
 │  └─ integration/
 │     └─ .gitkeep
 ├─ tools/
-│  ├─ codegen/
+│  ├─ deploy/
 │  │  ├─ src/
 │  │  │  └─ init.py
 │  │  └─ pyproject.toml
-│  └─ deploy/
+│  └─ docgen/
 │     ├─ src/
 │     │  └─ init.py
 │     └─ pyproject.toml
-├─ .coverage
+├─ .gitattributes
 ├─ .gitignore
 ├─ .pre-commit-config.yaml
 ├─ .python-version
 ├─ .tool-versions
+├─ CHANGELOG.md
 ├─ LICENSE
 ├─ pyproject.toml
 ├─ README.md

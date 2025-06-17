@@ -1,67 +1,84 @@
-"""Logger configuration and utilities."""
-
-import logging
 import sys
+from collections.abc import Generator
+from contextlib import contextmanager
 from typing import Any
 
-import structlog
-from structlog.stdlib import LoggerFactory
+from loguru import logger
 
 
 def setup_logging(
     level: str = "INFO", json_format: bool = False, include_timestamp: bool = True
 ) -> None:
-    """Set up structured logging configuration."""
+    """Set up Loguru logging configuration."""
 
-    processors = [
-        structlog.stdlib.filter_by_level,
-        structlog.stdlib.add_logger_name,
-        structlog.stdlib.add_log_level,
-        structlog.stdlib.PositionalArgumentsFormatter(),
-        structlog.processors.StackInfoRenderer(),
-        structlog.processors.format_exc_info,
-    ]
+    # Remove default handler
+    logger.remove()
 
-    if include_timestamp:
-        processors.append(structlog.processors.TimeStamper(fmt="ISO"))
-
+    # Build format string
     if json_format:
-        processors.append(structlog.processors.JSONRenderer())
+        # JSON format
+        format_str = "{time} | {level} | {name} | {message}"
+        serialize = True
     else:
-        processors.append(structlog.dev.ConsoleRenderer(colors=True))
+        # Console format with colors
+        if include_timestamp:
+            format_str = (
+                "<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | "
+                "<level>{level: <8}</level> | "
+                "<cyan>{name}</cyan>:"
+                "<cyan>{function}</cyan>:"
+                "<cyan>{line}</cyan> - "
+                "<level>{message}</level>"
+            )
+        else:
+            format_str = (
+                "<level>{level: <8}</level> | "
+                "<cyan>{name}</cyan>:"
+                "<cyan>{function}</cyan>:"
+                "<cyan>{line}</cyan> - "
+                "<level>{message}</level>"
+            )
+        serialize = False
 
-    structlog.configure(
-        processors=processors,
-        wrapper_class=structlog.stdlib.BoundLogger,
-        logger_factory=LoggerFactory(),
-        cache_logger_on_first_use=True,
+    # Add handler with configuration
+    logger.add(
+        sys.stdout,
+        format=format_str,
+        level=level.upper(),
+        colorize=not json_format,  # Only colorize for console output
+        serialize=serialize,  # JSON serialization
+        backtrace=True,  # Include backtrace in exceptions
+        diagnose=True,  # Include variable values in exceptions
     )
 
-    # Configure standard library logging
-    logging.basicConfig(
-        format="%(message)s",
-        stream=sys.stdout,
-        level=getattr(logging, level.upper()),
-    )
 
-
-def get_logger(name: str | None = None) -> structlog.stdlib.BoundLogger:
+def get_logger(name: str | None = None) -> Any:
     """Get a configured logger instance."""
-    return structlog.get_logger(name)
+    if name:
+        return logger.bind(name=name)
+    return logger
 
 
 # Context manager for adding context to logs
 class LogContext:
     """Context manager for adding structured context to logs."""
 
-    def __init__(self, logger: structlog.stdlib.BoundLogger, **context: Any):
-        self.logger = logger
+    def __init__(self, logger_instance: Any = None, **context: Any):
+        self.logger = logger_instance or logger
         self.context = context
-        self.bound_logger: structlog.stdlib.BoundLogger | None = None
+        self.bound_logger: Any = None
 
-    def __enter__(self) -> structlog.stdlib.BoundLogger:
+    def __enter__(self) -> Any:
         self.bound_logger = self.logger.bind(**self.context)
         return self.bound_logger
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         pass
+
+
+# Alternative: Context manager function (more Pythonic)
+@contextmanager
+def log_context(**context: Any) -> Generator[Any, None, None]:
+    """Context manager function for adding structured context to logs."""
+    bound_logger = logger.bind(**context)
+    yield bound_logger

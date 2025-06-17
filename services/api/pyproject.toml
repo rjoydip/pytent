@@ -4,13 +4,18 @@ build-backend = "hatchling.build"
 
 [project]
 name = "pytent-api"
-version = "0.1.0"
+version = "0.0.0"
 description = "API for Pytent"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 dependencies = [
     "fastapi>=0.115.12",
     "uvicorn>=0.34.2",
     "pytent-log",
+]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
 ]
 
 [tool.uv.sources]
