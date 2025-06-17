@@ -21,7 +21,7 @@ jobs:
         run: uv lock --check
 
       - name: Tools install
-        run: uv tools ruff pyright pip-audit
+        run: uv tool ruff pyright pip-audit
 
       - name: Audit
         run: uvx pip-audit -l
