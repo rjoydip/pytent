@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "pytent-docgen"
 version = "0.0.0"
 description = "Documentation generate from docstring for Pytent"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 dependencies = []
 
 [tool.hatch.build.targets.wheel]

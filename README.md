@@ -1,11 +1,11 @@
 # Pytent
 
-[![CI](https://github.com/rjoydip/pytent/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/rjoydip/pytent/actions/workflows/ci.yml)
+[![ci](https://github.com/rjoydip/pytent/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/rjoydip/pytent/actions/workflows/ci.yml)
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?style=flat-square&logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
-[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg?style=flat-square)](https://conventionalcommits.org)
+[![conventional commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg?style=flat-square)](https://conventionalcommits.org)
 [![pyright](https://microsoft.github.io/pyright/img/pyright_badge.svg)](https://microsoft.github.io/pyright/)
-[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
 A monorepo project template with UV package manager and CI integration.
 
@@ -18,7 +18,7 @@ A monorepo project template with UV package manager and CI integration.
 
 ## 📋 Prerequisites
 
-- Python 3.13+
+- Python 3.12+
 - Docker Desktop
 - UV
 

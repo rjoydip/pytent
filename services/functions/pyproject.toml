@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "pytent-func"
 version = "0.0.0"
 description = "AWS function for Pytent"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 dependencies = [
 
 ]

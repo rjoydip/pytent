@@ -6,9 +6,9 @@ build-backend = "hatchling.build"
 name = "pytent-log"
 version = "0.0.0"
 description = "Logging for Pytent"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 dependencies = [
-    "structlog>=23.0.0",
+    "loguru>=0.7.3",
 ]
 
 [tool.hatch.build.targets.wheel]
