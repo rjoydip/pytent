@@ -26,4 +26,26 @@ repos:
   rev: v0.9.0
   hooks:
   - id: xenon
-    args: ['--paths-in-front > artifacts/complexity-report.json']
+
+- repo: https://github.com/commitizen-tools/commitizen
+  rev: v4.8.3
+  hooks:
+    - id: commitizen
+    - id: commitizen-branch
+      stages: [commit-msg]
+
+- repo: local
+  hooks:
+    - id: pytest
+      name: pytest
+      entry: uvx pyright .
+      language: python
+      pass_filenames: false
+      always_run: true
+
+    - id: pyaudit
+      name: audit
+      entry: uvx pip-audit -l
+      language: python
+      pass_filenames: false
+      always_run: true

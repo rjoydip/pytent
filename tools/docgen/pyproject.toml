@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "pytent-codegen"
-version = "0.1.0"
-description = "Codegen for Pytent"
+name = "pytent-docgen"
+version = "0.0.0"
+description = "Documentation generate from docstring for Pytent"
 requires-python = ">=3.11"
 dependencies = []
 
