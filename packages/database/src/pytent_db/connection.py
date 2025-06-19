@@ -37,10 +37,7 @@ class DatabaseManager:
         try:
             # URL encode password to handle special characters
             encoded_password = quote_plus(password)
-            database_url = (
-                f"postgresql+asyncpg://{username}:{encoded_password}"
-                f"@{host}:{port}/{database}"
-            )
+            database_url = f"postgresql+asyncpg://{username}:{encoded_password}@{host}:{port}/{database}"
 
             self._engine = create_async_engine(
                 database_url,

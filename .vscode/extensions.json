@@ -1,5 +1,11 @@
 {
     "recommendations": [
-        "ms-python.python"
+        "aaron-bond.better-comments",
+        "ms-python.python",
+        "ms-azuretools.vscode-docker",
+        "ms-pyright.pyright",
+        "njpwerner.autodocstring",
+        "redhat.vscode-yaml",
+        "tamasfe.even-better-toml",
     ]
 }
