@@ -5,28 +5,6 @@ repos:
     -   id: check-yaml
     -   id: trailing-whitespace
 
--   repo: https://github.com/psf/black
-    rev: 22.10.0
-    hooks:
-    -   id: black
-
-- repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.11.13
-  hooks:
-    - id: ruff
-      args: [ --fix ]
-    - id: ruff-format
-
-- repo: https://github.com/RobertCraigie/pyright-python
-  rev: v1.1.402
-  hooks:
-  - id: pyright
-
-- repo: https://github.com/rubik/xenon
-  rev: v0.9.0
-  hooks:
-  - id: xenon
-
 - repo: https://github.com/commitizen-tools/commitizen
   rev: v4.8.3
   hooks:
@@ -36,16 +14,37 @@ repos:
 
 - repo: local
   hooks:
-    - id: pytest
-      name: pytest
+    - id: ruff
+      name: formating
+      entry: uvx ruff check . --fix
+      language: python
+      pass_filenames: false
+      always_run: true
+
+    - id: pyright
+      name: typecheck
       entry: uvx pyright .
       language: python
       pass_filenames: false
       always_run: true
 
-    - id: pyaudit
+    - id: xenon
+      name: complexity
+      entry: uvx xenon .
+      language: python
+      pass_filenames: false
+      always_run: true
+
+    - id: uv-secure
       name: audit
-      entry: uvx pip-audit -l
+      entry: uvx uv-secure .
+      language: python
+      pass_filenames: false
+      always_run: true
+
+    - id: pytest
+      name: pytest
+      entry: uvx pyright .
       language: python
       pass_filenames: false
       always_run: true

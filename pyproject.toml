@@ -44,12 +44,13 @@ upgrade = false
 default-groups = "all"
 
 [tool.ruff]
-line-length = 88
+line-length = 120
 target-version = "py311"
 extend-include = ["*.ipynb"]
 
 [tool.ruff.lint]
 select = [
+    # "D",  # pydocstyle - all docstring rules
     "E",  # pycodestyle errors
     "W",  # pycodestyle warnings
     "F",  # pyflakes
@@ -58,6 +59,16 @@ select = [
     "C4", # flake8-comprehensions
     "UP", # pyupgrade
 ]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.isort]
+split-on-trailing-comma = true
+force-wrap-aliases = true
+combine-as-imports = true
+# Group local imports
+force-sort-within-sections = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests", "packages", "services"]

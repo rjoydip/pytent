@@ -11,16 +11,19 @@ A monorepo project template with UV package manager and CI integration.
 
 ## 🚀 Features
 
-- UV package manager
-- Docker support
-- Ruff for code formatting and linting
-- Pytest for testing
+- [UV](https://github.com/astral-sh/uv) - An extremely fast Python package and project manager, written in Rust.
+- [Ruff](https://github.com/astral-sh/ruff) - An extremely fast Python linter and code formatter, written in Rust.
+- [Pytest](https://github.com/pytest-dev/pytest) - The pytest framework makes it easy to write small tests, yet scales to support complex functional testing
+- [Pyright](https://github.com/microsoft/pyright) - Static Type Checker for Python
+- [uv-secure](https://github.com/owenlamont/uv-secure) - Scan your uv.lock file for dependencies with known vulnerabilities
+- [pre-commit](https://github.com/pre-commit/pre-commit) - A framework for managing and maintaining multi-language pre-commit hooks
+- [commitizen](https://github.com/commitizen-tools/commitizen) - Create committing rules for projects 🚀 auto bump versions ⬆️ and auto changelog generation 📂
 
 ## 📋 Prerequisites
 
-- Python 3.12+
-- Docker Desktop
-- UV
+- [Python >=3.12+](https://www.python.org/downloads) - Download the latest version
+- [Docker Desktop](https://docs.docker.com/desktop) - Docker Desktop is a one-click-install
+- [UV](https://github.com/astral-sh/uv) - An extremely fast Python package and project manager, written in Rust.
 
 ## 🛠 Installation
 
@@ -37,28 +40,24 @@ uv sync --all-packages
 - Ruff
 
 ```bash
-# Install Ruff
 uv tool install ruff
 ```
 
 - Pyright
 
 ```bash
-# Install Pyright
 uv tool install pyright
 ```
 
 - Pip Audit
 
 ```bash
-# Install Pyright
-uv tool install pip-audit
+uv tool install uv-secure
 ```
 
 - Pre-commit
 
 ```bash
-# Install Pre-commit
 uv tool install pre-commit
 
 uvx pre-commit install
@@ -67,7 +66,6 @@ uvx pre-commit install
 - Commitizen
 
 ```bash
-# Install commitizen
 uv tool install commitizen
 ```
 
@@ -90,7 +88,7 @@ uv build --all-packages
 - Audit package vulnerability
 
 ```bash
-uvx pip-audit -l
+uvx uv-secure .
 ```
 
 - Run Pre-commit against all the files
@@ -102,28 +100,37 @@ uvx pre-commit run --all-files
 - Run code formatting and linting:
 
 ```bash
-# Formatting
-uvx ruff format .
-# Linting check
+# local
+uvx ruff check .
+# ci
 uvx ruff check --output-format=json . > artifacts/ruff-output.json
 ```
 
 - Run typechecking:
 
 ```bash
+# local
+uvx pyright .
+# ci
 uvx pyright . --outputjson > artifacts/pyright-output.json 2>&1
 ```
 
 - Run tests:
 
 ```bash
+# local
+uv run pytest
+# ci
 uv run pytest --cov=packages --cov-report=json:artifacts/coverage.json
 ```
 
 - Complexity Analysis
 
 ```bash
-uv run xenon . --paths-in-front > artifacts/complexity-report.json
+# local
+uvx xenon .
+# or
+uvx xenon . --paths-in-front > artifacts/complexity-report.json
 ```
 
 ### Local application development
@@ -146,19 +153,11 @@ docker run -p 8000:8000 api
 
 | Command | Description | Alias |
 |---------|-------------|-------|
-| `cz init` | Initialize Commitizen configuration | - |
 | `cz commit` | Create a new commit | `cz c` |
 | `cz bump` | Bump version and update changelog | - |
 | `cz changelog` | Generate changelog | `cz ch` |
 | `cz check` | Validate commit messages | - |
 | `cz version` | Show version information | - |
-
-## ⚙️ Configuration
-
-- Project dependencies and settings are managed in `pyproject.toml`
-- Ruff is configured for code formatting and linting
-- Pytest is set up for testing
-- Logging configuration is available for different environments
 
 ## 🌐 API Endpoints
 
@@ -261,3 +260,7 @@ python-monorepo-starter/
 3. Commit your changes (`git commit -m 'Add some amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
+
+## License
+
+Released under [MIT](./LICENSE) by [@rjoydip](https://github.com/rjoydip).

@@ -1,16 +1,13 @@
-import sys
 from collections.abc import Generator
 from contextlib import contextmanager
+import sys
 from typing import Any
 
 from loguru import logger
 
 
-def setup_logging(
-    level: str = "INFO", json_format: bool = False, include_timestamp: bool = True
-) -> None:
+def setup_logging(level: str = "INFO", json_format: bool = False, include_timestamp: bool = True) -> None:
     """Set up Loguru logging configuration."""
-
     # Remove default handler
     logger.remove()
 

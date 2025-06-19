@@ -1,5 +1,5 @@
-import traceback
 from collections.abc import Callable
+import traceback
 from typing import Any, TypeVar
 
 from pytent_log import get_logger
