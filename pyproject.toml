@@ -1,7 +1,7 @@
 [project]
 name = "pytent"
 version = "0.0.0"
-description = "A monorepo project template with UV package manager and CI integration."
+description = "A project template with UV package manager and CI integration."
 license = "MIT"
 readme = "README.md"
 requires-python = ">=3.12"

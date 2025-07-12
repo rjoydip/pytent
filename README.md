@@ -7,7 +7,7 @@
 [![pyright](https://microsoft.github.io/pyright/img/pyright_badge.svg)](https://microsoft.github.io/pyright/)
 [![ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
-A monorepo project template with UV package manager and CI integration.
+A project template with UV package manager and CI integration.
 
 ## 🚀 Features
 
