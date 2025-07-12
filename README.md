@@ -79,12 +79,6 @@ uv tool upgrade [...TOOL_NAMES]
 
 ### Local Development
 
-- Build modules:
-
-```bash
-uv build --all-packages
-```
-
 - Audit package vulnerability
 
 ```bash
@@ -101,7 +95,7 @@ uvx pre-commit run --all-files
 
 ```bash
 # local
-uvx ruff check .
+uvx ruff check . --fix
 # ci
 uvx ruff check --output-format=json . > artifacts/ruff-output.json
 ```
@@ -136,17 +130,20 @@ uvx xenon . --paths-in-front > artifacts/complexity-report.json
 ### Local application development
 
 ```bash
-cd services/api
-uv run uvicorn main:app --port 8000 --reload
+uv run servics/app
 ```
 
-### Docker Development
+### Docker/Podman Development
 
 Build and run the api in Docker:
 
 ```bash
-docker build -t api .
-docker run -p 8000:8000 api
+docker build -t app .
+docker run <IMAGE_NAME>
+
+# Or
+podman build -t app .
+podman run <IMAGE_NAME>
 ```
 
 ## Commitizen Commands
@@ -174,7 +171,7 @@ uv run pytest
 ## 🔍 Project Structure
 
 ```txt
-python-monorepo-starter/
+pytent/
 ├─ .devcontainer/
 │  └─ devcontainer.json
 ├─ .github/

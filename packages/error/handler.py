@@ -2,7 +2,7 @@ from collections.abc import Callable
 import traceback
 from typing import Any, TypeVar
 
-from pytent_log import get_logger
+from packages.log import get_logger
 
 from .exceptions import MyProjectError
 

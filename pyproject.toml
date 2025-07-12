@@ -8,19 +8,31 @@ requires-python = ">=3.12"
 authors = [
     {name = "rjoydip", email = "joydipand@gmail.com"}
 ]
-
-[tool.uv.workspace]
-members = [
-    "packages/*",
-    "services/*",
-    "tools/*"
+dependencies = [
+    "asyncpg>=0.28.0",
+    "loguru>=0.7.3",
+    "sqlalchemy>=2.0.0",
 ]
 
-[tool.uv.sources]
-pytent-log = { workspace = true }
-pytent-error = { workspace = true }
-pytent-database = { workspace = true }
+[dependency-groups]
+dev = [
+    "pytest>=8.4.1",
+    "pytest-cov>=6.2.1",
+    "xenon>=0.9.3",
+]
 
+[project.scripts]
+app = "services.app.main:main"
+
+[tool.uv]
+package = true
+
+[tool.setuptools]
+packages = ["packages"]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
 
 [tool.commitizen]
 name = "cz_conventional_commits"
@@ -31,17 +43,6 @@ update_changelog_on_bump = true
 major_version_zero = true
 annotated_tag = true
 changelog_incremental = true
-
-[dependency-groups]
-dev = [
-    "pytest>=7.0.0",
-    "pytest-cov>=4.0.0",
-    "xenon>=0.9.3",
-]
-
-[tool.uv]
-upgrade = false
-default-groups = "all"
 
 [tool.ruff]
 line-length = 120
