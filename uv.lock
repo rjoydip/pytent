@@ -481,7 +481,7 @@ wheels = [
 [[package]]
 name = "pytent"
 version = "0.0.0"
-source = { editable = "." }
+source = { virtual = "." }
 dependencies = [
     { name = "fastapi", extra = ["standard"] },
     { name = "loguru" },
