@@ -22,7 +22,7 @@ A project template with UV package manager and CI integration.
 ## 📋 Prerequisites
 
 - [Python >=3.12+](https://www.python.org/downloads) - Download the latest version
-- [Docker Desktop](https://docs.docker.com/desktop) - Docker Desktop is a one-click-install
+- [Docker Desktop](https://docs.docker.com/desktop) - Docker Desktop is a one-click-install or [Podman](https://podman.io/) - The best free & open source container tools
 - [UV](https://github.com/astral-sh/uv) - An extremely fast Python package and project manager, written in Rust.
 
 ## 🛠 Installation
@@ -130,12 +130,15 @@ uvx xenon . --paths-in-front > artifacts/complexity-report.json
 ### Local application development
 
 ```bash
-uv run servics/app
+# Development
+uv run fastapi dev services/app --port 8000 --host 127.0.0.1
+# Production
+uv run fastapi run services/app/main.py --port 8000 --host 127.0.0.1
 ```
 
 ### Docker/Podman Development
 
-Build and run the api in Docker:
+Build and run the api in Docker/Podman:
 
 ```bash
 docker build -t app .
@@ -144,6 +147,17 @@ docker run <IMAGE_NAME>
 # Or
 podman build -t app .
 podman run <IMAGE_NAME>
+```
+
+### Docker/Podman compose
+
+Build and run the api in Docker/Podman compose:
+
+```bash
+docker compose up --build
+
+# Or
+podman compose up --build
 ```
 
 ## Commitizen Commands
@@ -158,7 +172,8 @@ podman run <IMAGE_NAME>
 
 ## 🌐 API Endpoints
 
-- `GET /`: Returns a "Hello from UV!" message
+- `GET /`: Returns a "API is working" message
+- `GET /healthcheck`: Returns a system check message
 
 ## 🧪 Testing
 
@@ -187,63 +202,42 @@ pytent/
 ├─ docs/
 │  └─ .gitkeep
 ├─ packages/
-│  ├─ database/
-│  │  ├─ src/
-│  │  │  └─ pytent_db/
-│  │  │     ├─ __init__.py
-│  │  │     ├─ base.py
-│  │  │     ├─ connection.py
-│  │  │     └─ session.py
-│  │  └─ pyproject.toml
 │  ├─ error/
-│  │  ├─ src/
-│  │  │  └─ pytent_error/
-│  │  │     ├─ __init__.py
-│  │  │     ├─ exceptions.py
-│  │  │     └─ handler.py
-│  │  └─ pyproject.toml
+│  │  ├─ __init__.py
+│  │  ├─ exceptions.py
+│  │  └─ handler.py
 │  └─ log/
-│     ├─ src/
-│     │  └─ pytent_log/
-│     │     ├─ __init__.py
-│     │     └─ logger.py
-│     └─ pyproject.toml
+│     ├─ __init__.py
+│     └─ logger.py
 ├─ scripts/
 │  └─ .gitkeep
 ├─ services/
 │  ├─ api/
-│  │  ├─ tests/
-│  │  │  └─ test_main.py
-│  │  ├─ docker-compose.yml
-│  │  ├─ Dockerfile
+│  │  ├─ __init__.py
 │  │  ├─ main.py
-│  │  └─ pyproject.toml
 │  └─ functions/
 │     ├─ src/
-│     │  └─ pytent.func.py
-│     └─ pyproject.toml
+│     │  └─ main.py
+│     └─ requirements.txt
 ├─ tests/
 │  ├─ e2e/
 │  │  └─ .gitkeep
 │  ├─ fixtures/
 │  │  └─ .gitkeep
 │  └─ integration/
-│     └─ .gitkeep
+│  │  └─ .gitkeep
+│  └─ unit/
+│     └─ .test_hello.py
 ├─ tools/
-│  ├─ deploy/
-│  │  ├─ src/
-│  │  │  └─ init.py
-│  │  └─ pyproject.toml
-│  └─ docgen/
-│     ├─ src/
-│     │  └─ init.py
-│     └─ pyproject.toml
+│  └─ .gitkeep
 ├─ .gitattributes
 ├─ .gitignore
 ├─ .pre-commit-config.yaml
 ├─ .python-version
 ├─ .tool-versions
 ├─ CHANGELOG.md
+├─ docker-compose.yml
+├─ Dockerfile
 ├─ LICENSE
 ├─ pyproject.toml
 ├─ README.md
