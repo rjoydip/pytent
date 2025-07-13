@@ -7,12 +7,14 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 WORKDIR /app
 
 # Copy the application into the container.
-COPY ./services/app/*.py ./
+COPY ./services/api/*.py ./
 COPY ./packages/ ./packages/
 COPY ./pyproject.toml ./uv.lock ./
 
 # Install the application dependencies.
 RUN uv sync --no-cache
 
+ENV PATH="/app/.venv/bin:$PATH"
+
 # Run the application.
-CMD ["/app/.venv/bin/python", "-m", "main"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
